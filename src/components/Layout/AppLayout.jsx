@@ -1,17 +1,21 @@
 import { Outlet } from "react-router-dom";
-import { Navbar } from '../index'
-import useStyles from '../styles'
+import { Navbar } from '../index';
+import { Box } from '@mui/material';
 
 export default function AppLayout() {
-    const classes = useStyles()
-
     return (
-        <div className={classes.root}>
+        <Box sx={{ display: 'flex', height: '100%' }}>
             <Navbar />
-            <main className={classes.content}>
-                <div className={classes.toolbar} />
+            <Box
+                component="main"
+                sx={{
+                    flexGrow: 1,
+                    p: '2em',
+                }}
+            >
+                <Box sx={{ height: '70px' }} />
                 <Outlet />
-            </main>
-        </div>
-    )
+            </Box>
+        </Box>
+    );
 }
