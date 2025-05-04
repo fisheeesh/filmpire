@@ -1,12 +1,8 @@
-import { CssBaseline } from '@mui/material'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import Router from './router/index.jsx'
+import ThemeApp from './ThemeApp.jsx'
 
 
 createRoot(document.getElementById('root')).render(
-  <>
-    <CssBaseline />
-    <Router />
-  </>
+  <ThemeApp />
 )
