@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { Divider, List, ListItem, ListItemText, ListItemIcon, Box, ListSubheader, CircularProgress, useTheme } from '@mui/material'
+import { Divider, List, ListItemText, ListItemIcon, Box, ListSubheader, CircularProgress, useTheme, ListItemButton } from '@mui/material'
 import { Link } from 'react-router-dom'
 
 const redLogo = 'https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png';
@@ -48,12 +48,12 @@ export default function Sidebar({ setMobileOpen }) {
                             color: theme.palette.text.primary,
                             textDecoration: 'none'
                         }}>
-                            <ListItem onClick={() => { }} button>
+                            <ListItemButton onClick={() => { }}>
                                 {/* <ListItemIcon>
                                     <img src={redLogo} style={{ filter: theme.palette.mode === 'dark' ? 'dark' : 'invert(1)' }} height={30} alt="" />
                                 </ListItemIcon> */}
                                 <ListItemText primary={label} />
-                            </ListItem>
+                            </ListItemButton>
                         </Link>
                     ))
                 }
@@ -67,12 +67,12 @@ export default function Sidebar({ setMobileOpen }) {
                             color: theme.palette.text.primary,
                             textDecoration: 'none'
                         }}>
-                            <ListItem onClick={() => { }} button>
+                            <ListItemButton onClick={() => { }}>
                                 {/* <ListItemIcon>
                                     <img src={redLogo} style={{ filter: theme.palette.mode === 'dark' ? 'dark' : 'invert(1)' }} height={30} alt="" />
                                 </ListItemIcon> */}
                                 <ListItemText primary={label} />
-                            </ListItem>
+                            </ListItemButton>
                         </Link>
                     ))
                 }
