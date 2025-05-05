@@ -32,7 +32,7 @@ export default function Sidebar({ setMobileOpen }) {
                 padding: '10% 0'
             }}>
                 <img
-                    src={theme.palette.mode === 'light' ? redLogo : blueLogo}
+                    src={theme.palette.mode === 'light' ? blueLogo : redLogo}
                     style={{
                         width: '70%'
                     }}

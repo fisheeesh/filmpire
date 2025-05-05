@@ -1,0 +1,6 @@
+.movie-poster {
+    transition: transform 0.3s ease;
+}
+.movie-poster:hover {
+    transform: scale(1.05);
+}
