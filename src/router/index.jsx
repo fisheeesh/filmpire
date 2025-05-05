@@ -1,6 +1,6 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { AppLayout, Actors, MovieInformation, Movies, Profile } from '../components/index'
+import { AppLayout, Actors, MovieInformation, Movies, Profile } from '../pages/index'
 
 export default function Router() {
     const router = createBrowserRouter([

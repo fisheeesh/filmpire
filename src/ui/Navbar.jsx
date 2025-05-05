@@ -2,7 +2,7 @@ import { AppBar, IconButton, Toolbar, useTheme, useMediaQuery, Button, Avatar, B
 import { AccountCircle, Brightness4, Brightness7, Menu } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { Sidebar } from '..';
+import Sidebar from './Sidebar';
 
 const drawerWidth = 240
 
