@@ -23,6 +23,9 @@ export default function Sidebar({ setMobileOpen }) {
     const { data, isFetching, error } = useGetGenresQuery()
     const dispatch = useDispatch()
 
+    const selectedCategory = searchParams.get('category')
+    const selectedGenre = Number(searchParams.get('genre'))
+
     return (
         <>
             <Link to={'/'} style={{
@@ -47,7 +50,7 @@ export default function Sidebar({ setMobileOpen }) {
                             color: theme.palette.text.primary,
                             textDecoration: 'none'
                         }}>
-                            <ListItemButton onClick={() => dispatch(selectGenreOrCategory(value))}>
+                            <ListItemButton selected={value === selectedCategory} onClick={() => dispatch(selectGenreOrCategory(value))}>
                                 <ListItemIcon>
                                     <img src={genreIcons[label.toLowerCase()]} style={{ filter: theme.palette.mode === 'light' ? 'dark' : 'invert(1)' }} height={30} alt="" />
                                 </ListItemIcon>
@@ -67,11 +70,11 @@ export default function Sidebar({ setMobileOpen }) {
                         </Box>
                     ) :
                         data?.genres.map(({ name, id }) => (
-                            <Link to={`/?category=${id}`} key={name} style={{
+                            <Link to={`/?genre=${id}`} key={name} style={{
                                 color: theme.palette.text.primary,
                                 textDecoration: 'none'
                             }}>
-                                <ListItemButton onClick={() => dispatch(selectGenreOrCategory(id))}>
+                                <ListItemButton selected={id === selectedGenre} onClick={() => dispatch(selectGenreOrCategory(id))}>
                                     <ListItemIcon>
                                         <img src={genreIcons[name.toLowerCase()]} style={{ filter: theme.palette.mode === 'light' ? 'dark' : 'invert(1)' }} height={30} alt="" />
                                     </ListItemIcon>
