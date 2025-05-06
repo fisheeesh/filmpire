@@ -3,6 +3,7 @@ import { AccountCircle, Brightness4, Brightness7, Menu } from '@mui/icons-materi
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Sidebar from './Sidebar';
+import Search from './Search';
 
 const drawerWidth = 240
 
@@ -42,7 +43,7 @@ export default function Navbar() {
                     <IconButton color='inherit' sx={{ ml: 1 }} onClick={() => { }}>
                         {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
                     </IconButton>
-                    {!isMobile && 'Search...'}
+                    {!isMobile && <Search />}
                     <Box>
                         {!isAuthenticated ? (
                             <Button color='inherit' onClick={() => { }}>
