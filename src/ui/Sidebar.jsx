@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { useEffect } from "react"
 import { Divider, List, ListItemText, ListItemIcon, Box, ListSubheader, CircularProgress, useTheme, ListItemButton } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { useGetGenresQuery } from "../services/TMDB";
 
 const redLogo = 'https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png';
 const blueLogo = 'https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png'
@@ -10,15 +12,17 @@ const categories = [
     { label: 'Top Rated', value: 'top_rated' },
     { label: 'Upcoming', value: 'upcoming' }
 ]
-const demoCategories = [
-    { label: 'Comedy', value: 'comedy' },
-    { label: 'Action', value: 'action' },
-    { label: 'Horror', value: 'horror' },
-    { label: 'Animation', value: 'animation' }
-]
+// const demoCategories = [
+//     { label: 'Comedy', value: 'comedy' },
+//     { label: 'Action', value: 'action' },
+//     { label: 'Horror', value: 'horror' },
+//     { label: 'Animation', value: 'animation' }
+// ]
 
 export default function Sidebar({ setMobileOpen }) {
     const theme = useTheme()
+
+    const { data, isFetching, error } = useGetGenresQuery()
 
     useEffect(() => {
 
@@ -62,19 +66,24 @@ export default function Sidebar({ setMobileOpen }) {
             <List>
                 <ListSubheader>Genres</ListSubheader>
                 {
-                    demoCategories.map(({ label, value }) => (
-                        <Link to='/' key={value} style={{
-                            color: theme.palette.text.primary,
-                            textDecoration: 'none'
-                        }}>
-                            <ListItemButton onClick={() => { }}>
-                                {/* <ListItemIcon>
+                    isFetching ? (
+                        <Box display='flex' justifyContent='center' alignItems='center' height='100vh'>
+                            <CircularProgress size='4rem' />
+                        </Box>
+                    ) :
+                        data?.genres.map(({ name, id }) => (
+                            <Link to='/' key={name} style={{
+                                color: theme.palette.text.primary,
+                                textDecoration: 'none'
+                            }}>
+                                <ListItemButton onClick={() => { }}>
+                                    {/* <ListItemIcon>
                                     <img src={redLogo} style={{ filter: theme.palette.mode === 'dark' ? 'dark' : 'invert(1)' }} height={30} alt="" />
                                 </ListItemIcon> */}
-                                <ListItemText primary={label} />
-                            </ListItemButton>
-                        </Link>
-                    ))
+                                    <ListItemText primary={name} />
+                                </ListItemButton>
+                            </Link>
+                        ))
                 }
             </List>
         </>
