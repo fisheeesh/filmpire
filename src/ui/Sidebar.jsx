@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useEffect } from "react"
 import { Divider, List, ListItemText, ListItemIcon, Box, ListSubheader, CircularProgress, useTheme, ListItemButton } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useGetGenresQuery } from "../services/TMDB";
 import genreIcons from '../assets/genres'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectGenreOrCategory } from "../features/currentGenreOrCategory";
 
 const redLogo = 'https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png';
@@ -18,13 +18,10 @@ const categories = [
 
 export default function Sidebar({ setMobileOpen }) {
     const theme = useTheme()
+    const [searchParams, setSearchParams] = useSearchParams()
+    const { genreIdOrCategoryName } = useSelector(state => state.currentGenreOrCategory)
     const { data, isFetching, error } = useGetGenresQuery()
-
     const dispatch = useDispatch()
-
-    useEffect(() => {
-
-    }, [])
 
     return (
         <>
@@ -46,7 +43,7 @@ export default function Sidebar({ setMobileOpen }) {
                 <ListSubheader>Categories</ListSubheader>
                 {
                     categories.map(({ label, value }) => (
-                        <Link to='/' key={value} style={{
+                        <Link to={`/?category=${value}`} key={value} style={{
                             color: theme.palette.text.primary,
                             textDecoration: 'none'
                         }}>
@@ -70,7 +67,7 @@ export default function Sidebar({ setMobileOpen }) {
                         </Box>
                     ) :
                         data?.genres.map(({ name, id }) => (
-                            <Link to='/' key={name} style={{
+                            <Link to={`/?category=${id}`} key={name} style={{
                                 color: theme.palette.text.primary,
                                 textDecoration: 'none'
                             }}>

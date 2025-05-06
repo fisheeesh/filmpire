@@ -5,7 +5,7 @@ import genreOrCategoryReducer from "../features/currentGenreOrCategory";
 const store = configureStore({
     reducer: {
         [tmdbApi.reducerPath]: tmdbApi.reducer,
-        currentGenereOrCategory: genreOrCategoryReducer
+        currentGenreOrCategory: genreOrCategoryReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(tmdbApi.middleware),
