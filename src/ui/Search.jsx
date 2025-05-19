@@ -1,13 +1,14 @@
-import { TextField, InputAdornment, Box, useTheme } from "@mui/material"
 import { Search as SearchIcon } from "@mui/icons-material"
+import { Box, InputAdornment, TextField, useTheme } from "@mui/material"
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { searchMovie } from "../features/currentGenreOrCategory"
 
 export default function Search() {
     const theme = useTheme()
     const dispatch = useDispatch()
-    const [query, setQuery] = useState('')
+    const { searchQuery } = useSelector(state => state.currentGenreOrCategory)
+    const [query, setQuery] = useState(searchQuery)
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {

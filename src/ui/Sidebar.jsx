@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { useEffect } from "react"
-import { Divider, List, ListItemText, ListItemIcon, Box, ListSubheader, CircularProgress, useTheme, ListItemButton } from '@mui/material'
-import { Link, useSearchParams } from 'react-router-dom'
-import { useGetGenresQuery } from "../services/TMDB";
-import genreIcons from '../assets/genres'
+import { Box, CircularProgress, Divider, List, ListItemButton, ListItemIcon, ListItemText, ListSubheader, useTheme } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
+import genreIcons from '../assets/genres';
 import { selectGenreOrCategory } from "../features/currentGenreOrCategory";
+import { useGetGenresQuery } from "../services/TMDB";
 
 const redLogo = 'https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png';
 const blueLogo = 'https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png'
@@ -18,13 +17,9 @@ const categories = [
 
 export default function Sidebar({ setMobileOpen }) {
     const theme = useTheme()
-    const [searchParams, setSearchParams] = useSearchParams()
     const { genreIdOrCategoryName } = useSelector(state => state.currentGenreOrCategory)
     const { data, isFetching, error } = useGetGenresQuery()
     const dispatch = useDispatch()
-
-    const selectedCategory = searchParams.get('category')
-    const selectedGenre = Number(searchParams.get('genre'))
 
     return (
         <>
@@ -50,7 +45,7 @@ export default function Sidebar({ setMobileOpen }) {
                             color: theme.palette.text.primary,
                             textDecoration: 'none'
                         }}>
-                            <ListItemButton selected={value === selectedCategory} onClick={() => dispatch(selectGenreOrCategory(value))}>
+                            <ListItemButton selected={value === genreIdOrCategoryName} onClick={() => dispatch(selectGenreOrCategory(value))}>
                                 <ListItemIcon>
                                     <img src={genreIcons[label.toLowerCase()]} style={{ filter: theme.palette.mode === 'light' ? 'dark' : 'invert(1)' }} height={30} alt="" />
                                 </ListItemIcon>
@@ -74,7 +69,7 @@ export default function Sidebar({ setMobileOpen }) {
                                 color: theme.palette.text.primary,
                                 textDecoration: 'none'
                             }}>
-                                <ListItemButton selected={id === selectedGenre} onClick={() => dispatch(selectGenreOrCategory(id))}>
+                                <ListItemButton selected={id === Number(genreIdOrCategoryName)} onClick={() => dispatch(selectGenreOrCategory(id))}>
                                     <ListItemIcon>
                                         <img src={genreIcons[name.toLowerCase()]} style={{ filter: theme.palette.mode === 'light' ? 'dark' : 'invert(1)' }} height={30} alt="" />
                                     </ListItemIcon>
