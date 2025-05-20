@@ -29,7 +29,7 @@ export const tmdbApi = createApi({
                 }
 
                 //* At first we want to show popular movies
-                return `/movie/popular?page=${page}&api_key=${tmdbApiKey}`
+                // return `/movie/popular?page=${page}&api_key=${tmdbApiKey}`
             }
         })
     })

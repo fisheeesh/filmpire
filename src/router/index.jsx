@@ -1,6 +1,5 @@
-import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { AppLayout, Actors, MovieInformation, Movies, Profile } from '../pages/index'
+import { Actors, AppLayout, MovieInformation, Movies, Profile } from '../pages/index'
 
 export default function Router() {
     const router = createBrowserRouter([
@@ -23,6 +22,10 @@ export default function Router() {
                 {
                     path: '/profile/:id',
                     element: <Profile />
+                },
+                {
+                    path: '*',
+                    element: <Movies />
                 }
             ]
         }

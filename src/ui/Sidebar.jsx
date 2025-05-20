@@ -29,6 +29,7 @@ export default function Sidebar({ setMobileOpen }) {
                 padding: '10% 0'
             }}>
                 <img
+                    onClick={() => dispatch(selectGenreOrCategory('popular'))}
                     src={theme.palette.mode === 'light' ? blueLogo : redLogo}
                     style={{
                         width: '70%'
