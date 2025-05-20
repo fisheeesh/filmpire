@@ -1,8 +1,11 @@
 import { Grid, Grow, Typography, Tooltip, Rating, useTheme } from "@mui/material"
+import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
+import { selectGenreOrCategory } from "../features/currentGenreOrCategory"
 
 export default function Movie({ movie, i }) {
     const theme = useTheme()
+    const dispatch = useDispatch()
 
     return (
         <Grid sx={{ gridColumn: 'span 2', padding: '10px' }}>
@@ -21,6 +24,7 @@ export default function Movie({ movie, i }) {
                 }}
                     to={`/movie/${movie.id}`}>
                     <img
+                        onClick={() => dispatch(selectGenreOrCategory(''))}
                         className="movie-poster"
                         style={{
                             borderRadius: '20px',

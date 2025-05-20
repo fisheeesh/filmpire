@@ -7,6 +7,7 @@ import { setUser, userSelector } from '../features/auth';
 import { createSessionId, fetchToken, moviesApi } from '../utils';
 import Search from './Search';
 import Sidebar from './Sidebar';
+import { selectGenreOrCategory } from '../features/currentGenreOrCategory';
 
 const drawerWidth = 240
 
@@ -24,23 +25,28 @@ export default function Navbar() {
     const { isAuthenticated, user } = useSelector(userSelector)
     const dispatch = useDispatch()
 
-    console.log(user)
-
     useEffect(() => {
         const logInUser = async () => {
+            //* token shi lr
             if (token) {
+                //* token shi p sessionId kw shi lr (first time login so ma shi bu)
                 if (sessionIdFromLocalStorage) {
                     const { data: userData } = await moviesApi.get(`/account?session_id=${sessionIdFromLocalStorage}`)
                     dispatch(setUser(userData))
                 }
+                //* at first time login
                 else {
+                    //* sessionId create ml
                     const sessionId = await createSessionId()
+                    //* useData fetch moh sessionId lo dl
                     const { data: userData } = await moviesApi.get(`/account?session_id=${sessionId}`)
+                    //* user data to redux store mr store ml can use all over the app
                     dispatch(setUser(userData))
                 }
             }
         }
 
+        //* token changes phyit yin call ml
         logInUser()
     }, [token, sessionIdFromLocalStorage, dispatch])
 
@@ -96,7 +102,7 @@ export default function Navbar() {
                                         textDecoration: 'none',
                                     },
                                 }}
-                                onClick={() => { }}
+                                onClick={() => dispatch(selectGenreOrCategory(''))}
                             >
                                 {!isMobile && <>My Movies</>}
                                 <Avatar

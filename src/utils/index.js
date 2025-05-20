@@ -9,11 +9,14 @@ export const moviesApi = axios.create({
 
 export const fetchToken = async () => {
     try {
+        //* a yin sone token twr u dl
         const { data } = await moviesApi.get('/authentication/token/new')
         const token = data.request_token
         if (data.success) {
+            //* success yin token store dl
             localStorage.setItem('request_token', token)
 
+            //* redirect to main page
             window.location.href = `https://www.themoviedb.org/authenticate/${token}?redirect_to=${window.location.origin}/approved`
         }
     } catch (error) {
@@ -22,6 +25,7 @@ export const fetchToken = async () => {
 }
 
 export const createSessionId = async () => {
+    //* session id create moh so request_token lo ml sw sw ka login tone ka token to localstorage htl mr store htr loh pyn u
     const token = localStorage.getItem('request_token')
 
     if (token) {
@@ -30,8 +34,10 @@ export const createSessionId = async () => {
                 request_token: token
             })
 
+            //* success p so localstorage htl store ml
             localStorage.setItem('session_id', session_id)
 
+            //? retun that session id
             return session_id
         }
         catch (err) {
