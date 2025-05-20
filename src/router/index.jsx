@@ -1,7 +1,12 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { Actors, AppLayout, MovieInformation, Movies, Profile } from '../pages/index'
+import { useSelector } from 'react-redux'
+import { userSelector } from '../features/auth'
 
 export default function Router() {
+
+    const { isAuthenticated } = useSelector(userSelector)
+
     const router = createBrowserRouter([
         {
             path: '/',
@@ -21,7 +26,7 @@ export default function Router() {
                 },
                 {
                     path: '/profile/:id',
-                    element: <Profile />
+                    element: isAuthenticated ? <Profile /> : <Navigate to='/' replace />
                 },
                 {
                     path: '*',
