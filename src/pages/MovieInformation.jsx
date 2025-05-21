@@ -83,6 +83,36 @@ export default function MovieInformation() {
                         </Link>
                     ))}
                 </Grid>
+                <Typography variant="h5" gutterBottom sx={{ mt: '10px' }}>Overview</Typography>
+                <Typography sx={{ mb: '2rem' }}>{data?.overview}</Typography>
+                <Typography variant="h5" gutterBottom>Top Cast</Typography>
+                <Grid container spacing={2}>
+                    {data && data.credits.cast.map((character, i) => (
+                        character.profile_path && <Grid
+                            key={i}
+                            size={{ xs: 4, md: 2 }}
+                            component={Link} to={`/actors/${character?.id}`}
+                            sx={{
+                                textDecoration: 'none',
+                            }}
+                        >
+                            <Box
+                                component='img'
+                                src={`https://image.tmdb.org/t/p/w500/${character?.profile_path}`}
+                                alt={character?.name}
+                                sx={{
+                                    width: '100%',
+                                    maxWidth: '7em',
+                                    height: '8em',
+                                    objectFit: 'cover',
+                                    borderRadius: '10px',
+                                }}
+                            />
+                            <Typography color="textPrimary">{character.name}</Typography>
+                            <Typography color="textSecondary">{character.character.split('/')[0]}</Typography>
+                        </Grid>
+                    )).slice(0, 6)}
+                </Grid>
             </Grid>
         </Grid>
     )
