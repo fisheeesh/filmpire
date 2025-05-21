@@ -1,11 +1,12 @@
 import { Link, useParams } from "react-router-dom"
 import { useGetMovieQuery, useGetRecommendationsQuery } from "../services/TMDB"
-import { Box, Button, ButtonGroup, CircularProgress, Grid, Rating, Typography, useTheme } from "@mui/material"
+import { Box, Button, ButtonGroup, CircularProgress, Grid, Modal, Rating, Typography, useTheme } from "@mui/material"
 import genreIcons from '../assets/genres';
 import { useDispatch } from "react-redux";
 import MovieList from '../ui/MovieList'
 import { selectGenreOrCategory } from "../features/currentGenreOrCategory";
 import { ArrowBack, Favorite, FavoriteBorderOutlined, Language, MovieCreation, PlusOne, Remove, Theaters } from "@mui/icons-material";
+import { useState } from "react";
 
 export default function MovieInformation() {
     const theme = useTheme()
@@ -14,10 +15,11 @@ export default function MovieInformation() {
     const dispatch = useDispatch()
     const isMovieFavorited = true
     const isMovieWatchlisted = false
+    const [open, setOpen] = useState(false)
 
     const { data: recommendations, isFetching: isFetchingRecommendations } = useGetRecommendationsQuery({ list: 'recommendations', movie_id: id })
 
-    console.log(recommendations)
+    console.log(data?.results)
 
     if (isFetching) return (
         <Box display='flex' justifyContent='center' alignContent='center'>
@@ -140,7 +142,7 @@ export default function MovieInformation() {
                             <ButtonGroup size="medium" variant="outlined">
                                 <Button target="_blank" rel="noopener noreferrer" href={data?.homepage} endIcon={<Language />}>Website</Button>
                                 <Button target="_blank" rel="noopener noreferrer" href={`https://www.imdb.com/title/${data?.imdb_id}`} endIcon={<MovieCreation />}>IMDB</Button>
-                                <Button onClick={() => { }} href="#" endIcon={<Theaters />}>Trailer</Button>
+                                <Button onClick={() => setOpen(true)} href="#" endIcon={<Theaters />}>Trailer</Button>
                             </ButtonGroup>
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6 }} sx={{
@@ -178,6 +180,34 @@ export default function MovieInformation() {
                         <Box>Sorry nothing was found.</Box>
                 }
             </Box>
+            <Modal
+                closeAfterTransition
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+                open={open}
+                onClose={() => setOpen(false)}
+            >
+                {data.videos?.results.length > 0 && (
+                    <Box
+                        component="iframe"
+                        allowFullScreen
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        autoPlay
+                        sx={{
+                            width: { xs: '90%', sm: '70%', md:'50%' },
+                            height: { xs: '40%', sm: '50%' },
+                            borderRadius: '20px',
+                        }}
+                        frameBorder={0}
+                        title="Trailer"
+                        src={`https://www.youtube.com/embed/${data.videos?.results[0].key}`}
+                        allowAutoPlay
+                    />
+                )}
+            </Modal>
         </Grid>
     )
 }
