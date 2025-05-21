@@ -1,15 +1,18 @@
 import { Link, useParams } from "react-router-dom"
 import { useGetMovieQuery } from "../services/TMDB"
-import { Box, CircularProgress, Grid, Rating, Typography, useTheme } from "@mui/material"
+import { Box, Button, ButtonGroup, CircularProgress, Grid, Rating, Typography, useTheme } from "@mui/material"
 import genreIcons from '../assets/genres';
 import { useDispatch } from "react-redux";
 import { selectGenreOrCategory } from "../features/currentGenreOrCategory";
+import { ArrowBack, Favorite, FavoriteBorderOutlined, Language, MovieCreation, PlusOne, Remove, Theaters } from "@mui/icons-material";
 
 export default function MovieInformation() {
     const theme = useTheme()
     const { id } = useParams()
     const { data, isFetching, error } = useGetMovieQuery(id)
     const dispatch = useDispatch()
+    const isMovieFavorited = true
+    const isMovieWatchlisted = false
 
     if (isFetching) return (
         <Box display='flex' justifyContent='center' alignContent='center'>
@@ -112,6 +115,47 @@ export default function MovieInformation() {
                             <Typography color="textSecondary">{character.character.split('/')[0]}</Typography>
                         </Grid>
                     )).slice(0, 6)}
+                </Grid>
+                <Grid container sx={{ mt: '2rem' }}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            width: '100%',
+                            flexDirection: { xs: 'column', sm: 'row' },
+                        }}
+                    >
+                        <Grid size={{ xs: 12, sm: 6 }} sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            width: '100%',
+                            flexDirection: { xs: 'column', sm: 'row' },
+                        }}>
+                            <ButtonGroup size="medium" variant="outlined">
+                                <Button target="_blank" rel="noopener noreferrer" href={data?.homepage} endIcon={<Language />}>Website</Button>
+                                <Button target="_blank" rel="noopener noreferrer" href={`https://www.imdb.com/title/${data?.imdb_id}`} endIcon={<MovieCreation />}>IMDB</Button>
+                                <Button onClick={() => { }} href="#" endIcon={<Theaters />}>Trailer</Button>
+                            </ButtonGroup>
+                        </Grid>
+                        <Grid size={{ xs: 12, sm: 6 }} sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            width: '100%',
+                            flexDirection: { xs: 'column', sm: 'row' },
+                        }}>
+                            <ButtonGroup size="medium" variant="outlined">
+                                <Button onClick={() => { }} href="#" endIcon={isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />}>
+                                    {isMovieFavorited ? 'Unfavorite' : 'Favorite'}
+                                </Button>
+                                <Button onClick={() => { }} href="#" endIcon={isMovieWatchlisted ? <Remove /> : <PlusOne />}>
+                                    Watchlist
+                                </Button>
+                                <Button sx={{ borderColor: 'primary.main' }} endIcon={<ArrowBack />}>
+                                    <Typography sx={{ textDecoration: 'none' }} component={Link} to={'/'} color="inherit" variant="subtitle2">Back</Typography>
+                                </Button>
+                            </ButtonGroup>
+                        </Grid>
+                    </Box>
                 </Grid>
             </Grid>
         </Grid>
