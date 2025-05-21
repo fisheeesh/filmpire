@@ -31,6 +31,9 @@ export default function Navbar() {
             if (token) {
                 //* token shi p sessionId kw shi lr (first time login so ma shi bu)
                 if (sessionIdFromLocalStorage) {
+                    //* first time ma hote dok vu or refresh the page doh situation so yin
+                    //* userData twr u p yin redux htl store
+                    //* yeah simple as that
                     const { data: userData } = await moviesApi.get(`/account?session_id=${sessionIdFromLocalStorage}`)
                     dispatch(setUser(userData))
                 }
@@ -40,7 +43,7 @@ export default function Navbar() {
                     const sessionId = await createSessionId()
                     //* useData fetch moh sessionId lo dl
                     const { data: userData } = await moviesApi.get(`/account?session_id=${sessionId}`)
-                    //* user data to redux store mr store ml can use all over the app
+                    //* userData to redux store mr store ml can use all over the app
                     dispatch(setUser(userData))
                 }
             }

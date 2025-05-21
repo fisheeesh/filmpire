@@ -16,7 +16,7 @@ export default function Movies() {
         </Box>
     )
 
-    if (!data.results.length) return (
+    if (!data?.results.length) return (
         <Box display='flex' alignItems='center' mt='20px'>
             <Typography variant='h4'>
                 No movies that match that name.
