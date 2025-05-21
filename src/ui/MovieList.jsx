@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material"
 import Movie from "./Movie"
 
-export default function MovieList({ movies }) {
+export default function MovieList({ movies, numberOfMovies }) {
 
     return (
         <Grid container sx={{
@@ -11,7 +11,7 @@ export default function MovieList({ movies }) {
             justifyContent: { xs: 'center', sm: 'space-between' }
         }}>
             {
-                movies?.results.map((movie, i) => (
+                movies?.results.slice(0, numberOfMovies).map((movie, i) => (
                     <Movie key={i} movie={movie} i={i} />
                 ))
             }

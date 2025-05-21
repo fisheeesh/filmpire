@@ -29,7 +29,7 @@ export const tmdbApi = createApi({
                 }
 
                 //* At first we want to show popular movies
-                // return `/movie/popular?page=${page}&api_key=${tmdbApiKey}`
+                return `/movie/popular?page=${page}&api_key=${tmdbApiKey}`
             }
         }),
 
@@ -38,8 +38,13 @@ export const tmdbApi = createApi({
             query: (id) => {
                 return `/movie/${id}?append_to_response=videos,credits&api_key=${tmdbApiKey}`
             }
+        }),
+
+        //* Get user specific list
+        getRecommendations: builder.query({
+            query: ({ movie_id, list }) => `/movie/${movie_id}/${list}?api_key=${tmdbApiKey}`
         })
     })
 })
 
-export const { useGetMoviesQuery, useGetGenresQuery, useGetMovieQuery } = tmdbApi
+export const { useGetMoviesQuery, useGetGenresQuery, useGetMovieQuery, useGetRecommendationsQuery } = tmdbApi

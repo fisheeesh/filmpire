@@ -1,8 +1,9 @@
 import { Link, useParams } from "react-router-dom"
-import { useGetMovieQuery } from "../services/TMDB"
+import { useGetMovieQuery, useGetRecommendationsQuery } from "../services/TMDB"
 import { Box, Button, ButtonGroup, CircularProgress, Grid, Rating, Typography, useTheme } from "@mui/material"
 import genreIcons from '../assets/genres';
 import { useDispatch } from "react-redux";
+import MovieList from '../ui/MovieList'
 import { selectGenreOrCategory } from "../features/currentGenreOrCategory";
 import { ArrowBack, Favorite, FavoriteBorderOutlined, Language, MovieCreation, PlusOne, Remove, Theaters } from "@mui/icons-material";
 
@@ -13,6 +14,10 @@ export default function MovieInformation() {
     const dispatch = useDispatch()
     const isMovieFavorited = true
     const isMovieWatchlisted = false
+
+    const { data: recommendations, isFetching: isFetchingRecommendations } = useGetRecommendationsQuery({ list: 'recommendations', movie_id: id })
+
+    console.log(recommendations)
 
     if (isFetching) return (
         <Box display='flex' justifyContent='center' alignContent='center'>
@@ -122,6 +127,7 @@ export default function MovieInformation() {
                             display: 'flex',
                             justifyContent: 'space-between',
                             width: '100%',
+                            gap: { xs: '10px', sm: '0' },
                             flexDirection: { xs: 'column', sm: 'row' },
                         }}
                     >
@@ -158,6 +164,20 @@ export default function MovieInformation() {
                     </Box>
                 </Grid>
             </Grid>
+            <Box sx={{ mt: '5rem', width: '100%' }}>
+                <Typography variant="h3" gutterBottom align="center">You might also like</Typography>
+                {/* Loop through the recommended movies... */}
+                {
+                    isFetchingRecommendations && <Box display='flex' justifyContent='center' alignContent='center'>
+                        <CircularProgress size='4rem' sx={{ mt: '5rem' }} />
+                    </Box>
+                }
+                {
+                    (!isFetchingRecommendations && recommendations) ?
+                        <MovieList movies={recommendations} numberOfMovies={8} /> :
+                        <Box>Sorry nothing was found.</Box>
+                }
+            </Box>
         </Grid>
     )
 }
