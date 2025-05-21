@@ -19,8 +19,6 @@ export default function MovieInformation() {
 
     const { data: recommendations, isFetching: isFetchingRecommendations } = useGetRecommendationsQuery({ list: 'recommendations', movie_id: id })
 
-    console.log(data?.results)
-
     if (isFetching) return (
         <Box display='flex' justifyContent='center' alignContent='center'>
             <CircularProgress size='8rem' sx={{ mt: '12rem' }} />
