@@ -30,9 +30,9 @@ export default function Movies() {
     if (error) return 'An error has occured.'
 
     return (
-        <div>
+        <>
             <MovieList movies={data} numberOfMovies={numberOfMovies} />
             <Pagination totalPages={data.total_pages} />
-        </div>
+        </>
     )
 }

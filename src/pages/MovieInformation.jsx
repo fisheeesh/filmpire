@@ -38,7 +38,7 @@ export default function MovieInformation() {
             flexDirection: { sm: 'column', md: 'row' },
             flexWrap: 'wrap',
         }}>
-            <Grid size={{ sm: 12, md: 4 }}>
+            <Grid size={{ xs: 12, md: 4 }}>
                 <Box
                     component="img"
                     src={`https://image.tmdb.org/t/p/w500/${data?.poster_path}`}
@@ -68,7 +68,7 @@ export default function MovieInformation() {
                         <Rating readOnly value={data?.vote_average / 2}></Rating>
                         <Typography variant="subtitle1" gutterBottom sx={{ ml: '10px' }}>{data?.vote_average} / 10</Typography>
                     </Box>
-                    <Typography variant="h6" align="center" gutterBottom>{data?.runtime}min {data?.spoken_languages.length > 0 ? `/ ${data?.spoken_languages[0].name}` : ''}</Typography>
+                    <Typography variant="h6" align="center" gutterBottom>{data?.runtime}min | Language: {data?.spoken_languages[0].name}</Typography>
                 </Grid>
                 <Grid sx={{
                     margin: '10px 0 !important',

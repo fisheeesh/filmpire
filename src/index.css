@@ -4,3 +4,16 @@
 .movie-poster:hover {
     transform: scale(1.05);
 }
+/* 
+::-webkit-scrollbar {
+    width: 7px;
+}
+::-webkit-scrollbar-track {
+    background: #cfcfcf;
+}
+::-webkit-scrollbar-thumb {
+    background: #a5a5a5;
+}
+* {
+    text-decoration: none;
+} */

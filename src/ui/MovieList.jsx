@@ -8,7 +8,7 @@ export default function MovieList({ movies, numberOfMovies }) {
             display: 'flex',
             flexWrap: 'wrap',
             overflow: 'auto',
-            justifyContent: { xs: 'center', sm: 'space-between' }
+            justifyContent: { xs: 'center', md: 'space-between' }
         }}>
             {
                 movies?.results.slice(0, numberOfMovies).map((movie, i) => (

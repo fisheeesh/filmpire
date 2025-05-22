@@ -1,4 +1,4 @@
-export { default as AppLayout } from './Layout/AppLayout'
+export { default as AppLayout } from './layout/AppLayout'
 export { default as Actors } from './Actors'
 export { default as MovieInformation } from './MovieInformation'
 export { default as Movies } from './Movies'

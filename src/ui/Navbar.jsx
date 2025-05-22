@@ -61,6 +61,7 @@ export default function Navbar() {
                         height: '80px',
                         display: 'flex',
                         justifyContent: 'space-between',
+                        // paddingBottom: { xs: '20px', sm: 0 },
                         marginLeft: { xs: 0, sm: '240px' },
                         flexWrap: { xs: 'wrap', sm: 'nowrap' },
                     }}
@@ -116,7 +117,7 @@ export default function Navbar() {
                             </Button>
                         )}
                     </Box>
-                    {isMobile && 'Search...'}
+                    {isMobile && <Search />}
                 </Toolbar>
             </AppBar>
             <Box>
