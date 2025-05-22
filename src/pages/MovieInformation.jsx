@@ -106,7 +106,7 @@ export default function MovieInformation() {
                         <Rating readOnly value={data?.vote_average / 2}></Rating>
                         <Typography variant="subtitle1" gutterBottom sx={{ ml: '10px' }}>{data?.vote_average} / 10</Typography>
                     </Box>
-                    <Typography variant="h6" align="center" gutterBottom>{data?.runtime}min | Language: {data?.spoken_languages[0].name}</Typography>
+                    <Typography variant="h6" align="center" gutterBottom>{data?.runtime}min {data?.spoken_languages[0]?.name ? `| Language: ${data?.spoken_languages[0]?.name}` : ''}</Typography>
                 </Grid>
                 <Grid sx={{
                     margin: '10px 0 !important',
@@ -195,7 +195,7 @@ export default function MovieInformation() {
                                     Watchlist
                                 </Button>
                                 <Button sx={{ borderColor: 'primary.main' }} endIcon={<ArrowBack />}>
-                                    <Typography sx={{ textDecoration: 'none' }} component={Link} to={'/'} color="inherit" variant="subtitle2">Back</Typography>
+                                    <Typography sx={{ textDecoration: 'none' }} component={Link} to={-1} color="inherit" variant="subtitle2">Back</Typography>
                                 </Button>
                             </ButtonGroup>
                         </Grid>
