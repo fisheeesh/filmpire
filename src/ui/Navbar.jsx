@@ -114,7 +114,7 @@ export default function Navbar() {
                                 <Avatar
                                     sx={{ width: 30, height: 30 }}
                                     alt='profile'
-                                    src={defaultImage}
+                                    src={`https://www.themoviedb.org/t/p/w64_ad_h64_face${user?.avatar?.tmdb?.avatar_path || defaultImage}`}
                                 />
                             </Button>
                         )}

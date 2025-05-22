@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     genreIdOrCategoryName: 'popular',
+    prev: '',
     page: 1,
     searchQuery: ''
 }
@@ -14,6 +15,9 @@ export const genreOrCategory = createSlice({
             state.genreIdOrCategoryName = action.payload
             state.searchQuery = ''
         },
+        setPrev: (state, action) => {
+            state.prev = action.payload
+        },
         searchMovie: (state, action) => {
             state.searchQuery = action.payload
         },
@@ -23,6 +27,6 @@ export const genreOrCategory = createSlice({
     }
 })
 
-export const { selectGenreOrCategory, searchMovie, setPage } = genreOrCategory.actions
+export const { selectGenreOrCategory, setPrev, searchMovie, setPage } = genreOrCategory.actions
 
 export default genreOrCategory.reducer

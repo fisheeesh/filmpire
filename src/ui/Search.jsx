@@ -1,6 +1,6 @@
 import { Search as SearchIcon } from "@mui/icons-material"
 import { Box, InputAdornment, TextField, useTheme } from "@mui/material"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { searchMovie } from "../features/currentGenreOrCategory"
 import { useLocation } from "react-router-dom"
@@ -17,6 +17,11 @@ export default function Search() {
             dispatch(searchMovie(query))
         }
     }
+
+    //* Whenever Redux's searchQuery is reset, also clear the local input
+    useEffect(() => {
+        setQuery(searchQuery)
+    }, [searchQuery])
 
     if (location.pathname !== '/') return null
 

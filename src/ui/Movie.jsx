@@ -1,10 +1,11 @@
 import { Grid, Grow, Typography, Tooltip, Rating, useTheme } from "@mui/material"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { selectGenreOrCategory } from "../features/currentGenreOrCategory"
+import { selectGenreOrCategory, setPrev } from "../features/currentGenreOrCategory"
 
 export default function Movie({ movie, i }) {
     const theme = useTheme()
+    const { genreIdOrCategoryName } = useSelector(state => state.currentGenreOrCategory)
     const dispatch = useDispatch()
 
     return (
@@ -24,7 +25,10 @@ export default function Movie({ movie, i }) {
                 }}
                     to={`/movie/${movie.id}`}>
                     <img
-                        onClick={() => dispatch(selectGenreOrCategory(''))}
+                        onClick={() => {
+                            dispatch(selectGenreOrCategory(''))
+                            dispatch(setPrev(genreIdOrCategoryName))
+                        }}
                         className="movie-poster"
                         style={{
                             borderRadius: '20px',

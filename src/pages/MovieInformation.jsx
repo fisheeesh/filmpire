@@ -3,7 +3,7 @@ import { ArrowBack, Favorite, FavoriteBorderOutlined, Language, MovieCreation, P
 import { Box, Button, ButtonGroup, CircularProgress, Grid, Modal, Rating, Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import genreIcons from '../assets/genres';
 import { userSelector } from "../features/auth";
 import { selectGenreOrCategory } from "../features/currentGenreOrCategory";
@@ -16,7 +16,9 @@ const sessionId = localStorage.getItem('session_id')
 
 export default function MovieInformation() {
     const theme = useTheme()
+    const navigate = useNavigate()
     const { id } = useParams()
+    const { prev } = useSelector(state => state.currentGenreOrCategory)
     const dispatch = useDispatch()
     const { user } = useSelector(userSelector)
     const [isMovieFavorited, setIsMovieFavorited] = useState(false)
@@ -194,8 +196,11 @@ export default function MovieInformation() {
                                 <Button onClick={addToWatchlist} endIcon={isMovieWatchlisted ? <Remove /> : <PlusOne />}>
                                     Watchlist
                                 </Button>
-                                <Button sx={{ borderColor: 'primary.main' }} endIcon={<ArrowBack />}>
-                                    <Typography sx={{ textDecoration: 'none' }} component={Link} to={-1} color="inherit" variant="subtitle2">Back</Typography>
+                                <Button sx={{ borderColor: 'primary.main' }} onClick={() => {
+                                    navigate(-1)
+                                    dispatch(selectGenreOrCategory(prev))
+                                }} endIcon={<ArrowBack />}>
+                                    <Typography sx={{ textDecoration: 'none' }} color="inherit" variant="subtitle2">Back</Typography>
                                 </Button>
                             </ButtonGroup>
                         </Grid>
