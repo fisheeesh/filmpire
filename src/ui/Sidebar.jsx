@@ -48,7 +48,7 @@ export default function Sidebar({ setMobileOpen }) {
                         }}>
                             <ListItemButton selected={value === genreIdOrCategoryName} onClick={() => dispatch(selectGenreOrCategory(value))}>
                                 <ListItemIcon>
-                                    <img src={genreIcons[label.toLowerCase()]} style={{ filter: theme.palette.mode === 'light' ? 'dark' : 'invert(1)' }} height={30} alt="" />
+                                    <img src={genreIcons[label.toLowerCase()]} style={{ filter: theme.palette.mode === 'dark' && 'invert(1)' }} height={30} alt="" />
                                 </ListItemIcon>
                                 <ListItemText primary={label} />
                             </ListItemButton>
@@ -72,7 +72,7 @@ export default function Sidebar({ setMobileOpen }) {
                             }}>
                                 <ListItemButton selected={id === Number(genreIdOrCategoryName)} onClick={() => dispatch(selectGenreOrCategory(id))}>
                                     <ListItemIcon>
-                                        <img src={genreIcons[name.toLowerCase()]} style={{ filter: theme.palette.mode === 'light' ? 'dark' : 'invert(1)' }} height={30} alt="" />
+                                        <img src={genreIcons[name.toLowerCase()]} style={{ filter: theme.palette.mode === 'dark' && 'invert(1)' }} height={30} alt="" />
                                     </ListItemIcon>
                                     <ListItemText primary={name} />
                                 </ListItemButton>

@@ -22,7 +22,12 @@ export default function Pagination({ totalPages }) {
 
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Button disabled={isFirstPage} onClick={prevPage} sx={{ margin: '30px 2px' }} variant='contained' color='primary' type='button'>Prev</Button>
+            <Button disabled={isFirstPage} onClick={prevPage} sx={{
+                margin: '30px 2px', '&.Mui-disabled': {
+                    cursor: 'not-allowed',
+                    pointerEvents: 'auto',
+                },
+            }} variant='contained' color='primary' type='button'>Prev</Button>
             <Typography variant='h4' sx={{ margin: '0 20px !important', color: theme.palette.text.primary }}>{page}</Typography>
             <Button disabled={isLastPage} onClick={nextPage} variant='contained' color='primary' type='button'>Next</Button>
         </Box>

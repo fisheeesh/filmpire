@@ -60,12 +60,12 @@ export default function Navbar() {
             <AppBar position="fixed">
                 <Toolbar
                     sx={{
-                        height: '80px',
+                        minHeight: '80px',
+                        paddingBottom: { xs: '20px', sm: '0' },
                         display: 'flex',
                         justifyContent: 'space-between',
-                        // paddingBottom: { xs: '20px', sm: 0 },
-                        marginLeft: { xs: 0, sm: '240px' },
                         flexWrap: { xs: 'wrap', sm: 'nowrap' },
+                        marginLeft: { xs: 0, sm: '240px' },
                     }}
                 >
                     {isMobile && (

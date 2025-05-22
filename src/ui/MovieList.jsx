@@ -1,7 +1,9 @@
 import { Grid } from "@mui/material"
 import Movie from "./Movie"
 
-export default function MovieList({ movies, numberOfMovies }) {
+export default function MovieList({ movies, numberOfMovies, excludeFirst }) {
+
+    const startFrom = excludeFirst ? 1 : 0
 
     return (
         <Grid container sx={{
@@ -11,7 +13,7 @@ export default function MovieList({ movies, numberOfMovies }) {
             justifyContent: { xs: 'center', md: 'space-between' }
         }}>
             {
-                movies?.results.slice(0, numberOfMovies).map((movie, i) => (
+                movies?.results.slice(startFrom, numberOfMovies).map((movie, i) => (
                     <Movie key={i} movie={movie} i={i} />
                 ))
             }
