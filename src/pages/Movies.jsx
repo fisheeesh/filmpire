@@ -1,13 +1,11 @@
-/* eslint-disable no-unused-vars */
 import { Box, CircularProgress, Typography } from '@mui/material'
-import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useGetMoviesQuery } from '../services/TMDB'
 import MovieList from '../ui/MovieList'
+import Pagination from '../ui/Pagination'
 
 export default function Movies() {
-    const [page, setPage] = useState(1)
-    const { genreIdOrCategoryName, searchQuery } = useSelector(state => state.currentGenreOrCategory)
+    const { genreIdOrCategoryName, searchQuery, page } = useSelector(state => state.currentGenreOrCategory)
     const { data, error, isFetching } = useGetMoviesQuery({ genreIdOrCategoryName, page, searchQuery })
 
     if (isFetching) return (
@@ -31,6 +29,7 @@ export default function Movies() {
     return (
         <div>
             <MovieList movies={data} />
+            <Pagination totalPages={data.total_pages} />
         </div>
     )
 }

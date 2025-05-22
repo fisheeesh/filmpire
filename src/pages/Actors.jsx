@@ -3,12 +3,15 @@ import { useGetActorDetailsQuery, useGetMoviesByActorIdQuery } from "../services
 import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material"
 import { ArrowBack } from "@mui/icons-material"
 import MovieList from "../ui/MovieList"
+import Pagination from "../ui/Pagination"
+import { useSelector } from "react-redux"
 
 export default function Actors() {
     const { id } = useParams()
     const navigate = useNavigate()
+    const { page } = useSelector(state => state.currentGenreOrCategory)
     const { data, isFetching, error } = useGetActorDetailsQuery(id)
-    const { data: movies } = useGetMoviesByActorIdQuery({ id, page: 1 })
+    const { data: movies } = useGetMoviesByActorIdQuery({ id, page })
 
     if (isFetching) return (
         <Box display='flex' justifyContent='center' alignContent='center'>
@@ -58,6 +61,7 @@ export default function Actors() {
                 {movies && (
                     <MovieList movies={movies} numberOfMovies={12} />
                 )}
+                <Pagination totalPages={movies?.total_pages} />
             </Box>
         </>
     )

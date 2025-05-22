@@ -179,31 +179,33 @@ export default function MovieInformation() {
                 }
             </Box>
             <Modal
+                open={open}
+                onClose={() => setOpen(false)}
                 closeAfterTransition
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}
-                open={open}
-                onClose={() => setOpen(false)}
             >
-                {data.videos?.results.length > 0 && (
+                {data?.videos?.results?.length > 0 ? (
                     <Box
                         component="iframe"
                         allowFullScreen
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         autoPlay
                         sx={{
-                            width: { xs: '90%', sm: '70%', md:'50%' },
+                            width: { xs: '90%', sm: '70%', md: '50%' },
                             height: { xs: '40%', sm: '50%' },
                             borderRadius: '20px',
                         }}
                         frameBorder={0}
                         title="Trailer"
-                        src={`https://www.youtube.com/embed/${data.videos?.results[0].key}`}
+                        src={`https://www.youtube.com/embed/${data.videos.results[0].key}`}
                         allowAutoPlay
                     />
+                ) : (
+                    <Box>Trailer not available.</Box>
                 )}
             </Modal>
         </Grid>
