@@ -39,7 +39,9 @@ export default function Sidebar({ setMobileOpen }) {
             </Link>
             <Divider />
             <List>
-                <ListSubheader>Categories</ListSubheader>
+                <ListSubheader sx={{
+                    backgroundColor: 'transparent'
+                }}>Categories</ListSubheader>
                 {
                     categories.map(({ label, value }) => (
                         <Link to={`/?category=${value}`} key={value} style={{
@@ -58,7 +60,9 @@ export default function Sidebar({ setMobileOpen }) {
             </List>
             <Divider />
             <List>
-                <ListSubheader>Genres</ListSubheader>
+                <ListSubheader sx={{
+                    backgroundColor: 'transparent'
+                }}>Genres</ListSubheader>
                 {
                     isFetching ? (
                         <Box display='flex' justifyContent='center' alignItems='center' height='100vh'>
