@@ -29,11 +29,11 @@ export default function MovieInformation() {
     const { data: recommendations, isFetching: isFetchingRecommendations } = useGetRecommendationsQuery({ list: 'recommendations', movie_id: id })
 
     useEffect(() => {
-        setIsMovieFavorited(!!favoriteMovies?.results?.find(movie => movie.id === data?.id))
+        setIsMovieFavorited(!!favoriteMovies?.results?.find(movie => movie?.id === data?.id))
     }, [favoriteMovies, data])
 
     useEffect(() => {
-        setIsMovieWatchlisted(!!watchlistMovies?.results?.find(movie => movie.id === data?.d))
+        setIsMovieWatchlisted(!!watchlistMovies?.results?.find(movie => movie?.id === data?.id))
     }, [watchlistMovies, data])
 
     const addToFavorites = async () => {
