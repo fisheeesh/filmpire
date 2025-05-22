@@ -1,23 +1,61 @@
-import { Link, useParams } from "react-router-dom"
-import { useGetMovieQuery, useGetRecommendationsQuery } from "../services/TMDB"
-import { Box, Button, ButtonGroup, CircularProgress, Grid, Modal, Rating, Typography, useTheme } from "@mui/material"
-import genreIcons from '../assets/genres';
-import { useDispatch } from "react-redux";
-import MovieList from '../ui/MovieList'
-import { selectGenreOrCategory } from "../features/currentGenreOrCategory";
+
 import { ArrowBack, Favorite, FavoriteBorderOutlined, Language, MovieCreation, PlusOne, Remove, Theaters } from "@mui/icons-material";
-import { useState } from "react";
+import { Box, Button, ButtonGroup, CircularProgress, Grid, Modal, Rating, Typography, useTheme } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import genreIcons from '../assets/genres';
+import { userSelector } from "../features/auth";
+import { selectGenreOrCategory } from "../features/currentGenreOrCategory";
+import { useGetListQuery, useGetMovieQuery, useGetRecommendationsQuery } from "../services/TMDB";
+import MovieList from '../ui/MovieList';
+import { moviesApi } from "../utils";
+
+const apiKey = import.meta.env.VITE_TMDB_KEY
+const sessionId = localStorage.getItem('session_id')
 
 export default function MovieInformation() {
     const theme = useTheme()
     const { id } = useParams()
-    const { data, isFetching, error } = useGetMovieQuery(id)
     const dispatch = useDispatch()
-    const isMovieFavorited = true
-    const isMovieWatchlisted = false
+    const { user } = useSelector(userSelector)
+    const [isMovieFavorited, setIsMovieFavorited] = useState(false)
+    const [isMovieWatchlisted, setIsMovieWatchlisted] = useState(false)
     const [open, setOpen] = useState(false)
 
+    const { data, isFetching, error } = useGetMovieQuery(id)
+    const { data: favoriteMovies } = useGetListQuery({ listName: 'favorite/movies', accountId: user.id, sessionId, page: 1 })
+    const { data: watchlistMovies } = useGetListQuery({ listName: 'watchlist/movies', accountId: user.id, sessionId, page: 1 })
     const { data: recommendations, isFetching: isFetchingRecommendations } = useGetRecommendationsQuery({ list: 'recommendations', movie_id: id })
+
+    useEffect(() => {
+        setIsMovieFavorited(!!favoriteMovies?.results?.find(movie => movie.id === data?.id))
+    }, [favoriteMovies, data])
+
+    useEffect(() => {
+        setIsMovieWatchlisted(!!watchlistMovies?.results?.find(movie => movie.id === data?.d))
+    }, [watchlistMovies, data])
+
+    const addToFavorites = async () => {
+        await moviesApi.post(`/account/${user.id}/favorite?api_key=${apiKey}&session_id=${sessionId}`, {
+            media_type: 'movie',
+            media_id: id,
+            favorite: !isMovieFavorited
+        })
+
+        setIsMovieFavorited(prev => !prev)
+    }
+
+    const addToWatchlist = async () => {
+        await moviesApi.post(`/account/${user.id}/watchlist?api_key=${apiKey}&session_id=${sessionId}`, {
+            media_type: 'movie',
+            media_id: id,
+            watchlist: !isMovieWatchlisted
+        })
+
+        setIsMovieWatchlisted(prev => !prev)
+    }
+
 
     if (isFetching) return (
         <Box display='flex' justifyContent='center' alignContent='center'>
@@ -140,7 +178,7 @@ export default function MovieInformation() {
                             <ButtonGroup size="medium" variant="outlined">
                                 <Button target="_blank" rel="noopener noreferrer" href={data?.homepage} endIcon={<Language />}>Website</Button>
                                 <Button target="_blank" rel="noopener noreferrer" href={`https://www.imdb.com/title/${data?.imdb_id}`} endIcon={<MovieCreation />}>IMDB</Button>
-                                <Button onClick={() => setOpen(true)} href="#" endIcon={<Theaters />}>Trailer</Button>
+                                <Button onClick={() => setOpen(true)} endIcon={<Theaters />}>Trailer</Button>
                             </ButtonGroup>
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6 }} sx={{
@@ -150,10 +188,10 @@ export default function MovieInformation() {
                             flexDirection: { xs: 'column', sm: 'row' },
                         }}>
                             <ButtonGroup size="medium" variant="outlined">
-                                <Button onClick={() => { }} href="#" endIcon={isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />}>
+                                <Button onClick={addToFavorites} endIcon={isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />}>
                                     {isMovieFavorited ? 'Unfavorite' : 'Favorite'}
                                 </Button>
-                                <Button onClick={() => { }} href="#" endIcon={isMovieWatchlisted ? <Remove /> : <PlusOne />}>
+                                <Button onClick={addToWatchlist} endIcon={isMovieWatchlisted ? <Remove /> : <PlusOne />}>
                                     Watchlist
                                 </Button>
                                 <Button sx={{ borderColor: 'primary.main' }} endIcon={<ArrowBack />}>
