@@ -1,17 +1,17 @@
-import { createTheme, CssBaseline, ThemeProvider } from '@mui/material'
-import Router from './router/index'
-import { Provider } from 'react-redux'
-import store from './app/store'
+import { CssBaseline } from '@mui/material';
+import { Provider } from 'react-redux';
+import store from './app/store';
+import Router from './router/index';
+import ToggleColorModeProvider from './utils/ToggleColorMode';
 
 export default function ThemeApp() {
-    const theme = createTheme();
 
     return (
         <Provider store={store}>
-            <ThemeProvider theme={theme}>
+            <ToggleColorModeProvider>
                 <CssBaseline />
                 <Router />
-            </ThemeProvider>
+            </ToggleColorModeProvider>
         </Provider>
     )
 }
