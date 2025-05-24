@@ -167,11 +167,11 @@ export default function MovieInformation() {
                             display: 'flex',
                             justifyContent: 'space-between',
                             width: '100%',
-                            gap: { xs: '10px', sm: '0' },
-                            flexDirection: { xs: 'column', sm: 'row' },
+                            gap: { xs: '10px', md: '0' },
+                            flexDirection: { xs: 'column', md: 'row' },
                         }}
                     >
-                        <Grid size={{ xs: 12, sm: 6 }} sx={{
+                        <Grid sx={{
                             display: 'flex',
                             justifyContent: 'space-between',
                             width: '100%',
@@ -183,7 +183,7 @@ export default function MovieInformation() {
                                 <Button onClick={() => setOpen(true)} endIcon={<Theaters />}>Trailer</Button>
                             </ButtonGroup>
                         </Grid>
-                        <Grid size={{ xs: 12, sm: 6 }} sx={{
+                        <Grid sx={{
                             display: 'flex',
                             justifyContent: 'space-between',
                             width: '100%',
@@ -209,7 +209,7 @@ export default function MovieInformation() {
             </Grid>
             <Box sx={{ mt: '5rem', width: '100%' }}>
                 <Typography variant="h3" gutterBottom align="center">You might also like</Typography>
-                {/* Loop through the recommended movies... */}
+                
                 {
                     isFetchingRecommendations && <Box display='flex' justifyContent='center' alignContent='center'>
                         <CircularProgress size='4rem' sx={{ mt: '5rem' }} />

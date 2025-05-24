@@ -29,7 +29,10 @@ export default function Sidebar({ setMobileOpen }) {
                 padding: '10% 0'
             }}>
                 <img
-                    onClick={() => dispatch(selectGenreOrCategory('popular'))}
+                    onClick={() => {
+                        dispatch(selectGenreOrCategory('popular'))
+                        setMobileOpen(false)
+                    }}
                     src={theme.palette.mode === 'light' ? blueLogo : redLogo}
                     style={{
                         width: '70%'
@@ -48,7 +51,10 @@ export default function Sidebar({ setMobileOpen }) {
                             color: theme.palette.text.primary,
                             textDecoration: 'none'
                         }}>
-                            <ListItemButton selected={value === genreIdOrCategoryName} onClick={() => dispatch(selectGenreOrCategory(value))}>
+                            <ListItemButton selected={value === genreIdOrCategoryName} onClick={() => {
+                                dispatch(selectGenreOrCategory(value))
+                                setMobileOpen(false)
+                            }}>
                                 <ListItemIcon>
                                     <img src={genreIcons[label.toLowerCase()]} style={{ filter: theme.palette.mode === 'dark' && 'invert(1)' }} height={30} alt="" />
                                 </ListItemIcon>
@@ -74,7 +80,10 @@ export default function Sidebar({ setMobileOpen }) {
                                 color: theme.palette.text.primary,
                                 textDecoration: 'none'
                             }}>
-                                <ListItemButton selected={id === Number(genreIdOrCategoryName)} onClick={() => dispatch(selectGenreOrCategory(id))}>
+                                <ListItemButton selected={id === Number(genreIdOrCategoryName)} onClick={() => {
+                                    dispatch(selectGenreOrCategory(id))
+                                    setMobileOpen(false)
+                                }}>
                                     <ListItemIcon>
                                         <img src={genreIcons[name.toLowerCase()]} style={{ filter: theme.palette.mode === 'dark' && 'invert(1)' }} height={30} alt="" />
                                     </ListItemIcon>

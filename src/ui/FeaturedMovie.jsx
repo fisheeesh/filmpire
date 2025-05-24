@@ -1,19 +1,27 @@
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material"
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
+import { selectGenreOrCategory, setPrev } from "../features/currentGenreOrCategory"
 
 export default function FeaturedMovie({ movie }) {
-    console.log(movie)
-
+    const dispatch = useDispatch()
+    const { genreIdOrCategoryName } = useSelector(state => state.currentGenreOrCategory)
     if (!movie) return null
 
     return (
-        <Box component={Link} to={`/movie/${movie?.id}`} sx={{
-            mb: '20px',
-            display: 'flex',
-            justifyContent: 'center',
-            height: '490px',
-            textDecoration: 'none',
-        }}>
+        <Box
+            onClick={() => {
+                dispatch(selectGenreOrCategory(''))
+                dispatch(setPrev(genreIdOrCategoryName))
+            }}
+            component={Link}
+            to={`/movie/${movie?.id}`} sx={{
+                mb: '20px',
+                display: 'flex',
+                justifyContent: 'center',
+                height: '490px',
+                textDecoration: 'none',
+            }}>
             <Card sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', flexDirection: 'column', position: 'relative' }}>
                 <CardMedia
                     media='picture'

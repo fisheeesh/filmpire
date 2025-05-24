@@ -29,7 +29,7 @@ export default function Actors() {
     return (
         <>
             <Grid container spacing={3}>
-                <Grid size={{ lg: 5, xl: 4 }}>
+                <Grid size={{ lg: 5, xl: 4 }} display="flex" justifyContent="center">
                     <Box
                         sx={{
                             maxWidth: '90%',
