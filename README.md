@@ -56,7 +56,7 @@ Filmpire uses **TMDB’s OAuth** system to authenticate users securely. Once log
 ## 🌐 Deployment
 
 Filmpire is live and deployed on **Vercel**.  
-👉 [Live Demo](https://filmpire-ashy.vercel.app)
+👉 [Live Demo](https://www.filmpire.net)
 
 ## 📜 License
 
